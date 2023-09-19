@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://i15f0frn8k37"]
+
+[ext_resource type="Texture2D" uid="uid://bfth2tppcxtvt" path="res://Assets/minesweeper_atlas.png" id="1_y5g1c"]
+[ext_resource type="Script" path="res://Scripts/mines_grid.gd" id="2_c067d"]
+[ext_resource type="PackedScene" uid="uid://ds1xtk75k34ja" path="res://game_state_manager.tscn" id="3_vle0t"]
+[ext_resource type="PackedScene" uid="uid://djr4xyeyie3nw" path="res://ui.tscn" id="4_83los"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3pfd4"]
+texture = ExtResource("1_y5g1c")
+margins = Vector2i(4, 4)
+separation = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/next_alternative_id = 2
+2:2/0 = 0
+2:2/1 = 1
+2:2/1/custom_data_0 = true
+3:2/0 = 0
+4:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7imvg"]
+custom_data_layer_0/name = "has_mine"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_3pfd4")
+
+[node name="main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_7imvg")
+format = 2
+script = ExtResource("2_c067d")
+
+[node name="UI" parent="." instance=ExtResource("4_83los")]
+
+[node name="GameStateManager" parent="." node_paths=PackedStringArray("mines_grid", "ui") instance=ExtResource("3_vle0t")]
+mines_grid = NodePath("../TileMap")
+ui = NodePath("../UI")

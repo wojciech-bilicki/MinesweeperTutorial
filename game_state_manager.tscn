@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds1xtk75k34ja"]
+
+[ext_resource type="Script" path="res://Scripts/game_state_manager.gd" id="1_isrr4"]
+
+[node name="GameStateManager" type="Node"]
+script = ExtResource("1_isrr4")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
