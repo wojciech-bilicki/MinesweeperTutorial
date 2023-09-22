@@ -42,6 +42,9 @@ zoom = Vector2(2, 2)
 tile_set = SubResource("TileSet_7imvg")
 format = 2
 script = ExtResource("2_c067d")
+columns = 2
+rows = 2
+number_of_mines = 2
 
 [node name="UI" parent="." instance=ExtResource("4_83los")]
 

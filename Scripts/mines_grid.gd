@@ -69,6 +69,7 @@ func place_mines():
 			cell_coordinates = Vector2(randi_range(- rows/2, rows/2 -1), randi_range(-columns/2, columns /2 -1))
 		
 		cells_with_mines.append(cell_coordinates)
+		
 	
 	for cell in cells_with_mines:
 		erase_cell(DEFAULT_LAYER, cell)
@@ -127,8 +128,10 @@ func handle_surrounding_cell(cell_coord: Vector2i):
 	
 func get_surrounding_cells_mine_count(cell_coord: Vector2i):
 	var mine_count = 0
-	var surrounding_cells = get_surrounding_cells(cell_coord)
+	var surrounding_cells = get_surrounding_cells_to_check(cell_coord)
+	print(surrounding_cells.size())
 	for cell in surrounding_cells:
+		
 		var tile_data = get_cell_tile_data(DEFAULT_LAYER, cell)
 		if tile_data and tile_data.get_custom_data("has_mine"):
 			mine_count += 1
@@ -182,3 +185,16 @@ func win():
 	is_game_finished = true
 	game_won.emit()
 	
+
+func get_surrounding_cells_to_check(current_cell:Vector2i):
+	var target_cell
+	var surrounding_cells = []
+	
+	for y in 3:
+		for x in 3:
+			if x == 1 and y == 1:
+				continue
+			target_cell = current_cell + Vector2i(x - 1, y - 1)
+			surrounding_cells.append(target_cell)
+	
+	return surrounding_cells
